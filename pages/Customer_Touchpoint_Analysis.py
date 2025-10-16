@@ -1,13 +1,11 @@
 
 import streamlit as st
 import pandas as pd
+from data.snowflake_conn import import_to_pandas
 
 st.title("📊 Data Explorer")
 
 # Example data
-df = pd.DataFrame({
-    "Name": ["Alice", "Bob", "Charlie"],
-    "Score": [85, 90, 78]
-})
+df = import_to_pandas("Select * FROM Customer_Touchpoints")
 
 st.dataframe(df)
