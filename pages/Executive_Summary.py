@@ -12,6 +12,8 @@ st.set_page_config(
 
 transactions_df = import_to_pandas("SELECT * FROM transactions")
 
+marketing_spend = import_to_pandas('SELECT * FROM Marketing_spend')
+
 def display_total_sales():
     transactions_df["ORDER_DATE"] = pd.to_datetime(transactions_df["ORDER_DATE"], format='%m/%d/%y %H:%M', errors='coerce').dt.date
 
@@ -22,6 +24,10 @@ def display_total_sales():
     total_sales = transactions_df['TOTAL_AMOUNT'].sum()
     total_sales = f"{total_sales}"
     st.metric(label = "Total Sales  \n" + min_date + " - " + max_date, value = "$" + total_sales, border = True)
+def display_total_marketing_spend():
+    total_spend = marketing_spend['SPEND_AMOUNT'].sum()
+    total_spend = f"{total_spend}"
+    st.metric(label = "Total Marketing Spend:  \n", value = "$" + total_spend, border = True)
 
 def display_channel_pie():
     
@@ -79,17 +85,31 @@ def display_stores_map():
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     st.plotly_chart(fig)
 
+def display_marketing_spend_bar():
+    #Group by channel and sum the spend amount
+    channel_spend = marketing_spend.groupby('CHANNEL')['SPEND_AMOUNT'].sum().reset_index()
+    channel_spend_sorted = channel_spend.sort_values(by='SPEND_AMOUNT',ascending=False)
+    # Create bar chart using matplotlib
+    fig, ax = plt.subplots()
+    ax.bar(channel_spend_sorted['CHANNEL'], channel_spend_sorted['SPEND_AMOUNT'], color = sns.color_palette('Reds'))
+
+    # Customize chart
+    ax.set_title('Total Spend per Channel  \n  \n', fontsize=32, weight='bold')
+    ax.set_xlabel('Channel', fontsize = 20)
+    ax.set_ylabel('Spend Amount ($)', fontsize = 20)
+
+    st.pyplot(fig, width = "stretch")
 
 
 
 #OUTPUT ITEMS
 st.markdown("<h1 style='text-align: center; color: black;'>Executive Summary</h1>", unsafe_allow_html=True)
-row1 = st.columns(3)
+row1 = st.columns(3, border= True)
 r1c1 = row1[0]
 r1c2 = row1[1]
 r1c3 = row1[2]
 
-row2 = st.columns(2)
+row2 = st.columns(2, border = True)
 r2c1 = row2[0]
 r2c2 = row2[1]
 
@@ -99,6 +119,7 @@ col1, col2, col3 = st.columns(3)
 
 with r1c1:
     display_total_sales()
+    display_total_marketing_spend()
 
 with r1c2:
     display_channel_pie()
@@ -107,5 +128,8 @@ st.text("")
 st.text("")
 with r2c1:
     display_stores_map()
+
+with r2c2:
+    display_marketing_spend_bar()
 
 
