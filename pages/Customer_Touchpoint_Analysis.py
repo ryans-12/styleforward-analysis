@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -11,6 +10,7 @@ from data.snowflake_conn import import_to_pandas
 st.set_page_config(
     layout="wide",
 )
+
 
 tjx_colors = ['#9C1C26', '#bd222e', '#d92d3a', '#df4e59', '#e56f78', '#eb9098', '#f1b2b7']
 
@@ -110,7 +110,7 @@ def display_last_touch_sales_bar():
     st.pyplot(fig, width= 'stretch')
 
 #OUTPUT ITEMS
-st.markdown("<h1 style='text-align: center; color: black;'>Customer Touchpoint Analysis</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #9C1C26;'>Customer Touchpoint Analysis</h1>", unsafe_allow_html=True)
 row1 = st.columns(3, border= True)
 r1c1 = row1[0]
 r1c2 = row1[1]

@@ -107,7 +107,7 @@ def display_marketing_spend_bar():
 
 
 #OUTPUT ITEMS
-st.markdown("<h1 style='text-align: center; color: black;'>Executive Summary</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #9C1C26;'>Executive Summary</h1>", unsafe_allow_html=True)
 row1 = st.columns(3, border= True)
 r1c1 = row1[0]
 r1c2 = row1[1]
