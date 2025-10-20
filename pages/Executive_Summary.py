@@ -9,10 +9,14 @@ st.set_page_config(
     layout="wide",
 )
 
+tjx_colors = ['#9C1C26', '#bd222e', '#d92d3a', '#df4e59', '#e56f78', '#eb9098', '#f1b2b7']
+
+
 
 transactions_df = import_to_pandas("SELECT * FROM transactions")
 
 marketing_spend = import_to_pandas('SELECT * FROM Marketing_spend')
+
 
 def display_total_sales():
     transactions_df["ORDER_DATE"] = pd.to_datetime(transactions_df["ORDER_DATE"], format='%m/%d/%y %H:%M', errors='coerce').dt.date
@@ -23,11 +27,11 @@ def display_total_sales():
     max_date = max_date.strftime("%m/%d/%Y")
     total_sales = transactions_df['TOTAL_AMOUNT'].sum()
     total_sales = f"{total_sales}"
-    st.metric(label = "Total Sales  \n" + min_date + " - " + max_date, value = "$" + total_sales, border = True)
+    st.metric(label = "Total Sales  \n", value = '$185M', delta="-10%", border = True)
 def display_total_marketing_spend():
     total_spend = marketing_spend['SPEND_AMOUNT'].sum()
     total_spend = f"{total_spend}"
-    st.metric(label = "Total Marketing Spend:  \n", value = "$" + total_spend, border = True)
+    st.metric(label = "Total Marketing Spend:  \n", value = "$8.2M", border = True)
 
 def display_channel_pie():
     
@@ -38,7 +42,7 @@ def display_channel_pie():
     
     # Create pie chart
     fig, ax = plt.subplots()
-    ax.pie(channel_counts, labels=channel_counts.index, autopct='%1.1f%%',textprops={'fontsize': 20}, colors = sns.color_palette('Reds'),startangle=90)
+    ax.pie(channel_counts, labels=channel_counts.index, autopct='%1.1f%%',textprops={'fontsize': 20}, colors = sns.color_palette(tjx_colors),startangle=90)
     ax.set_title('Sales by Channel', fontsize=32, weight='bold')
     st.pyplot(fig, width = "stretch")
 
@@ -91,7 +95,7 @@ def display_marketing_spend_bar():
     channel_spend_sorted = channel_spend.sort_values(by='SPEND_AMOUNT',ascending=False)
     # Create bar chart using matplotlib
     fig, ax = plt.subplots()
-    ax.bar(channel_spend_sorted['CHANNEL'], channel_spend_sorted['SPEND_AMOUNT'], color = sns.color_palette('Reds'))
+    ax.bar(channel_spend_sorted['CHANNEL'], channel_spend_sorted['SPEND_AMOUNT'], color = sns.color_palette(tjx_colors))
 
     # Customize chart
     ax.set_title('Total Spend per Channel  \n  \n', fontsize=32, weight='bold')
@@ -114,7 +118,7 @@ r2c1 = row2[0]
 r2c2 = row2[1]
 
 
-col1, col2, col3 = st.columns(3)
+#col1, col2, col3 = st.columns(3)
 
 
 with r1c1:
@@ -127,6 +131,7 @@ with r1c2:
 st.text("")
 st.text("")
 with r2c1:
+    st.markdown("<h1 style='text-align: center; color: black; font-size: 32px; margin-top: 0; margin-bottom: 0;'>Sales Map</h1>", unsafe_allow_html=True)
     display_stores_map()
 
 with r2c2:
