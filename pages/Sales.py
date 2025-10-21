@@ -11,6 +11,9 @@ st.set_page_config(
     layout="wide",
 )
 
+with open('pages/style.css')as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html = True)
+
 tjx_colors = ['#9C1C26', '#bd222e', '#d92d3a', '#df4e59', '#e56f78', '#eb9098', '#f1b2b7']
 
 def display_yearly_revenue():
@@ -49,9 +52,11 @@ def display_sales_by_channel():
     # Plotting
     fig, ax = plt.subplots(figsize = (4,2.5))
     transactions_df.plot(x="CHANNEL", y="TOTAL_AMT", kind="bar", color =  sns.color_palette(tjx_colors),legend=False, ax =ax)
-    plt.title("Total Sales  \n", weight = 'bold')
+    plt.title("Total Sales", weight = 'bold')
     plt.xlabel("", fontsize = 1)
-    plt.ylabel("Total Sales ($)", fontsize = 12)
+    plt.ylabel("Total Sales ($)", fontsize = 10)
+    plt.xticks(size = 8)
+    plt.yticks(size = 8)
     st.pyplot(fig, width = 'stretch')
 
 

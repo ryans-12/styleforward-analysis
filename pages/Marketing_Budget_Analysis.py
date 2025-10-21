@@ -11,6 +11,9 @@ st.set_page_config(
     layout="wide",
 )
 
+with open('pages/style.css')as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html = True)
+
 tjx_colors = ['#9C1C26', '#bd222e', '#d92d3a', '#df4e59', '#e56f78', '#eb9098', '#f1b2b7']
 
 

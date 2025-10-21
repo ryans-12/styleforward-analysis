@@ -9,6 +9,10 @@ st.set_page_config(
     layout="wide",
 )
 
+with open('pages/style.css')as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html = True)
+
+
 tjx_colors = ['#9C1C26', '#bd222e', '#d92d3a', '#df4e59', '#e56f78', '#eb9098', '#f1b2b7']
 
 
@@ -98,7 +102,7 @@ def display_marketing_spend_bar():
     ax.bar(channel_spend_sorted['CHANNEL'], channel_spend_sorted['SPEND_AMOUNT'], color = sns.color_palette(tjx_colors))
 
     # Customize chart
-    ax.set_title('Total Spend per Channel  \n  \n', fontsize=32, weight='bold')
+    ax.set_title('Total Spend per Channel  \n  \n', fontsize=24, weight='bold')
     ax.set_xlabel('Channel', fontsize = 20)
     ax.set_ylabel('Spend Amount ($)', fontsize = 20)
 
@@ -128,10 +132,23 @@ with r1c1:
 with r1c2:
     display_channel_pie()
 
+with r1c3:
+    st.markdown("<h1 style='text-align: center; color: black; font-size: 24px; margin-top: 0; margin-bottom: 0;'>Most Engaged Touchpoints</h1>", unsafe_allow_html=True)
+    
+    st.markdown("""
+    1. Direct (25.9%)
+    2. Email (22.2&)
+    3. Walk-In (18.5%)
+    4. Google (14.8%)
+    5. Instagram (7.4%) / TikTok (7.4%)
+    7. Facebook (3.7%)
+    """)
+
+
 st.text("")
 st.text("")
 with r2c1:
-    st.markdown("<h1 style='text-align: center; color: black; font-size: 32px; margin-top: 0; margin-bottom: 0;'>Sales Map</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: black; font-size: 24px; margin-top: 0; margin-bottom: 0;'>Sales Map</h1>", unsafe_allow_html=True)
     display_stores_map()
 
 with r2c2:
