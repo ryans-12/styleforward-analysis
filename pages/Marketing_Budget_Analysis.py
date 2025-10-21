@@ -31,11 +31,11 @@ def display_marketing_spend_vs_revenue_pie():
     colors = ['#d92d3a', "#f3c5c9"]
 
     # Create pie chart
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize = (3,3))
     ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90, colors=colors, explode = [0.12,0])
     ax.set_title('Percentage of Revenue spent on Marketing  \n', weight='bold')
 
-    st.pyplot(fig, width = 'stretch')
+    st.pyplot(fig)
 
 def spend_vs_revenue_bar():
     marketing_spend = import_to_pandas('SELECT CAMPAIGN_ID, SUM(SPEND_AMOUNT) AS TOTAL_SPEND FROM MARKETING_SPEND GROUP BY CAMPAIGN_ID')
@@ -63,8 +63,8 @@ def spend_vs_revenue_bar():
     # Customize chart
     ax.set_xticks(x)
     ax.set_xticklabels(ids)
-    ax.set_xlabel('ID')
-    ax.set_ylabel('Amount')
+    ax.set_xlabel('ID', fontsize = 12)
+    ax.set_ylabel('Amount ($)', fontsize = 12)
     ax.set_title('Budget vs Money Spent per Campaign  \n', weight = 'bold')
     ax.legend()
 
@@ -77,16 +77,38 @@ def display_marketing_spend_bar():
     # Plotting
     fig, ax = plt.subplots()
     spend_by_channel.plot(x="CHANNEL", y="TOTAL_SPEND_BY_CHANNEL", kind="bar", color =  sns.color_palette(tjx_colors),legend=False, ax =ax)
-    plt.title("Marketing Spend by Channel  \n", weight = 'bold', fontsize = 20)
-    plt.xlabel("Channel", fontsize = 16)
-    plt.ylabel("Spend in USD ($)", fontsize = 16)
+    plt.title("Marketing Spend by Channel  \n", weight = 'bold')
+    plt.xlabel("Channel", fontsize = 12)
+    plt.ylabel("Spend in USD ($)", fontsize = 12)
     st.pyplot(fig, width= 'stretch')
+
+def display_ROAS_bar():
+    spend_df = import_to_pandas('SELECT CHANNEL, SUM(CLICKS) as TOTAL_CLICKS, SUM(SPEND_AMOUNT) AS TOTAL_SPEND, SUM(REVENUE_ATTRIBUTED) as TOTAL_REVENUE FROM MARKETING_SPEND GROUP BY CHANNEL')
+    
+    # Create scatter plot
+    fig, ax = plt.subplots()
+    ax.scatter(spend_df['TOTAL_SPEND'], spend_df['TOTAL_REVENUE'], color='#bd222e')
+
+    
+    # Annotate each point with its ID
+    for i in range(len(spend_df)):
+        ax.annotate(spend_df['CHANNEL'][i], (spend_df['TOTAL_SPEND'][i], spend_df['TOTAL_REVENUE'][i]),
+                    textcoords="offset points", xytext=(5,5), ha='center')
+
+
+    # Customize chart
+    ax.set_title('Total Spending vs Total Revenue  \n', weight = 'bold')
+    ax.set_xlabel('Total Spending ($)', fontsize = 12)
+    ax.set_ylabel('Total Revenue ($)', fontsize = 12)
+
+    st.pyplot(fig)
+
 #OUTPUT ITEMS
 st.markdown("<h1 style='text-align: center; color: #9C1C26;'>Marketing Budget Analysis</h1>", unsafe_allow_html=True)
-row1 = st.columns(3, border= True)
+row1 = st.columns(2, border= True)
 r1c1 = row1[0]
 r1c2 = row1[1]
-r1c3 = row1[2]
+
 
 row2 = st.columns(2, border = True)
 r2c1 = row2[0]
@@ -94,13 +116,16 @@ r2c2 = row2[1]
 
 with r1c1:
     display_marketing_spend_metric()
-
-with r1c2:
     display_marketing_spend_vs_revenue_pie()
 
-with r1c3:
+with r1c2:
     display_marketing_spend_bar()
 with r2c1:
     spend_vs_revenue_bar()
+
+with r2c2:
+    display_ROAS_bar()
+
+    
     
 
