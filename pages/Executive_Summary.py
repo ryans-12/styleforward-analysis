@@ -27,11 +27,11 @@ def display_total_sales():
     max_date = max_date.strftime("%m/%d/%Y")
     total_sales = transactions_df['TOTAL_AMOUNT'].sum()
     total_sales = f"{total_sales}"
-    st.metric(label = "Total Sales  \n", value = '$185M', delta="-10%", border = True)
+    st.metric(label = "Yearly Revenue  \n", value = '$185M', delta="-10%", border = True)
 def display_total_marketing_spend():
     total_spend = marketing_spend['SPEND_AMOUNT'].sum()
     total_spend = f"{total_spend}"
-    st.metric(label = "Total Marketing Spend:  \n", value = "$8.2M", border = True)
+    st.metric(label = "Yearly Marketing Spend:  \n", value = "$8.2M", border = True)
 
 def display_channel_pie():
     
