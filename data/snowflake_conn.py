@@ -2,6 +2,7 @@ import snowflake.connector
 import pandas as pd
 from dotenv import load_dotenv
 import os
+import streamlit as st
 
 '''def connect_db():
     # Load environment variables from .env file
@@ -52,13 +53,20 @@ def import_to_pandas(sql_query):
     load_dotenv()
 
     #Retrieve values
-    user = os.getenv("SNOWFLAKE_USER")
+    '''user = os.getenv("SNOWFLAKE_USER")
     password = os.getenv("SNOWFLAKE_PASSWORD")
     account = os.getenv("SNOWFLAKE_ACCOUNT")
     warehouse = os.getenv("SNOWFLAKE_WAREHOUSE")
     database = os.getenv("SNOWFLAKE_DATABASE")
     schema = os.getenv("SNOWFLAKE_SCHEMA")
-    role = os.getenv("SNOWFLAKE_ROLE")
+    role = os.getenv("SNOWFLAKE_ROLE")'''
+    user = st.secrets["SNOWFLAKE_USER"]
+    password = st.secrets["SNOWFLAKE_PASSWORD"]
+    account = st.secrets["SNOWFLAKE_ACCOUNT"]
+    warehouse = st.secrets["SNOWFLAKE_WAREHOUSE"]
+    database = st.secrets["SNOWFLAKE_DATABASE"]
+    schema = st.secrets["SNOWFLAKE_SCHEMA"]
+    role = st.secrets["SNOWFLAKE_ROLE"]
 
     conn = snowflake.connector.connect(
         user=user,
