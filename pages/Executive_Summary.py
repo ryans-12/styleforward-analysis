@@ -137,7 +137,7 @@ with r1c3:
     
     st.markdown("""
     1. Direct (25.9%)
-    2. Email (22.2&)
+    2. Email (22.2%)
     3. Walk-In (18.5%)
     4. Google (14.8%)
     5. Instagram (7.4%) / TikTok (7.4%)

@@ -21,6 +21,9 @@ transactions_df = import_to_pandas("SELECT * FROM transactions")
 
 #create data for pie charts for first and last touchpoints
 touchpoints_df = import_to_pandas("SELECT * FROM customer_touchpoints")
+#rename direct channel to website
+touchpoints_df['CHANNEL'] = touchpoints_df['CHANNEL'].replace('Direct', 'Website')
+
 touchpoints_df['interaction_datetime_parsed'] = pd.to_datetime(touchpoints_df['TOUCHPOINT_TIMESTAMP'], format='%m/%d/%y %H:%M', errors='coerce')
 customer_touchpoints = touchpoints_df.sort_values(['CUSTOMER_ID', 'interaction_datetime_parsed'])
 first_touch = customer_touchpoints.groupby('CUSTOMER_ID').first()[['CHANNEL', 'interaction_datetime_parsed']].rename(columns={'CHANNEL': 'first_touch_channel', 'interaction_datetime_parsed':'first_touch_time'})

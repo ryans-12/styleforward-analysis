@@ -78,7 +78,7 @@ def promo_code_bar():
 
 
 #OUTPUT ITEMS
-st.markdown("<h1 style='text-align: center; color: #9C1C26;'>Total Sales</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #9C1C26;'>Sales Analysis</h1>", unsafe_allow_html=True)
 col1, col2= st.columns([2,3], border= True)
 
 with col1:

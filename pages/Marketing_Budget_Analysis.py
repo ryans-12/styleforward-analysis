@@ -66,7 +66,7 @@ def spend_vs_revenue_bar():
     # Customize chart
     ax.set_xticks(x)
     ax.set_xticklabels(ids)
-    ax.set_xlabel('ID', fontsize = 12)
+    ax.set_xlabel('Campaign ID', fontsize = 12)
     ax.set_ylabel('Amount ($)', fontsize = 12)
     ax.set_title('Budget vs Money Spent per Campaign  \n', weight = 'bold')
     ax.legend()
@@ -100,7 +100,7 @@ def display_ROAS_bar():
 
 
     # Customize chart
-    ax.set_title('Total Spending vs Total Revenue  \n', weight = 'bold')
+    ax.set_title('Spending vs Revenue by Channel  \n', weight = 'bold')
     ax.set_xlabel('Total Spending ($)', fontsize = 12)
     ax.set_ylabel('Total Revenue ($)', fontsize = 12)
 
