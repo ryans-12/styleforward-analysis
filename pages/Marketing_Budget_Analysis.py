@@ -86,7 +86,7 @@ def display_marketing_spend_bar():
     st.pyplot(fig, width= 'stretch')
 
 def display_ROAS_bar():
-    spend_df = import_to_pandas('SELECT CHANNEL, SUM(CLICKS) as TOTAL_CLICKS, SUM(SPEND_AMOUNT) AS TOTAL_SPEND, SUM(REVENUE_ATTRIBUTED) as TOTAL_REVENUE FROM MARKETING_SPEND GROUP BY CHANNEL')
+    spend_df = import_to_pandas('SELECT CHANNEL, SUM(SPEND_AMOUNT) AS TOTAL_SPEND, SUM(REVENUE_ATTRIBUTED) as TOTAL_REVENUE FROM MARKETING_SPEND GROUP BY CHANNEL')
     
     # Create scatter plot
     fig, ax = plt.subplots()
@@ -101,8 +101,8 @@ def display_ROAS_bar():
 
     # Customize chart
     ax.set_title('Spending vs Revenue by Channel  \n', weight = 'bold')
-    ax.set_xlabel('Total Spending ($)', fontsize = 12)
-    ax.set_ylabel('Total Revenue ($)', fontsize = 12)
+    ax.set_xlabel('Spending by Channel ($)', fontsize = 12)
+    ax.set_ylabel('Revenue Attributed ($)', fontsize = 12)
 
     st.pyplot(fig)
 
