@@ -136,7 +136,7 @@ with r1c3:
     st.markdown("<h1 style='text-align: center; color: black; font-size: 24px; margin-top: 0; margin-bottom: 0;'>Most Engaged Touchpoints</h1>", unsafe_allow_html=True)
     
     st.markdown("""
-    1. Direct (25.9%)
+    1. Website (25.9%)
     2. Email (22.2%)
     3. Walk-In (18.5%)
     4. Google (14.8%)
